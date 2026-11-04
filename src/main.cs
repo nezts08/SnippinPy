@@ -677,18 +677,19 @@ namespace SnippinCS
             SaveConfig();
         }
 
-      private static void SaveConfig()
-{
-    try
-    {
-        var opts = new JsonSerializerOptions { WriteIndented = true };
-        File.WriteAllText(ConfigFile, JsonSerializer.Serialize(config, opts));
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Error al guardar configuración: {ex.Message}", "SnippinC#");
-    }
-}
+        private static void SaveConfig()
+        {
+            try
+            {
+                var opts = new JsonSerializerOptions { WriteIndented = true };
+                File.WriteAllText(ConfigFile, JsonSerializer.Serialize(config, opts));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar configuración: {ex.Message}", "SnippinC#");
+            }
+        }
+
         [DllImport("user32.dll")]
         private static extern short GetAsyncKeyState(int virtualKey);
 
@@ -715,7 +716,6 @@ namespace SnippinCS
                 if ((flags & LLKHF_INJECTED) != 0)
                     return CallNextHookEx(_hookID, nCode, wParam, lParam);
 
-                // No expandir ni capturar comandos dentro de la propia aplicacion.
                 if (IsOwnWindowActive())
                 {
                     buffer = "";
@@ -730,7 +730,7 @@ namespace SnippinCS
                     if (config.Commands.TryGetValue(word, out string expanded))
                     {
                         Task.Run(() => ExecuteCommand(word, expanded));
-                        return (IntPtr)1; // No enviar TAB u otra tecla de activacion al editor.
+                        return (IntPtr)1;
                     }
                 }
                 else if (
@@ -745,14 +745,7 @@ namespace SnippinCS
                     || vkCode == 0xA3
                     || vkCode == 0xA4
                     || vkCode == 0xA5
-                )
-                {
-                    // Conservar el texto mientras se mantienen los modificadores.
-                }
-                else if (mods != 0)
-                {
-                    // No anexar los caracteres usados en una combinacion.
-                }
+                ) { }
                 else if (vkCode == 8)
                 {
                     if (buffer.Length > 0)
@@ -773,7 +766,7 @@ namespace SnippinCS
                             ? (vkCode - 96).ToString()
                             : ((char)vkCode).ToString().ToLowerInvariant();
                     if (buffer.Length > 100)
-                            buffer = buffer.Substring(buffer.Length - 100);
+                        buffer = buffer.Substring(buffer.Length - 100);
                 }
                 else
                     buffer = "";
