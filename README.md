@@ -55,9 +55,9 @@ Una aplicación de escritorio ligera desarrollada en **Python (Tkinter)**, dise�
 ```text
 Snippin/
 ├── preview/
-│   ├── preview.png
-│   ├── configure.png
-│   └── command.png
+│   ├── previsualizacion.png
+│   ├── configuracion.png
+│   └── comando.png
 ├── src/
 │   ├── command.json
 │   └── snippin.py
