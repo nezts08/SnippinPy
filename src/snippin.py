@@ -659,7 +659,7 @@ class SnippinApp:
     def is_own_window_active(self) -> bool:
         try:
             hwnd = win32gui.GetForegroundWindow()
-            _thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+            _, pid = win32process.GetWindowThreadProcessId(hwnd)
             return pid == os.getpid()
         except Exception:
             return False
