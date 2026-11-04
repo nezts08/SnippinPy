@@ -1,5 +1,3 @@
-"""Snippin - conversor Python de SnippinC# (Windows)."""
-
 from __future__ import annotations
 
 import json
@@ -18,7 +16,7 @@ try:
     import os
 except ImportError as exc:
     raise SystemExit(
-        "Faltan dependencias. Ejecuta: pip install -r requirements.txt\n"
+        "Faltan dependencias. Ejecuta: pip install -r requerimientos.txt\n"
         f"Detalle: {exc}"
     )
 
